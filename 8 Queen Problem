@@ -1,0 +1,24 @@
+N = 8
+
+def is_safe(board, row, col):
+    for i in range(row):
+        if board[i] == col or \
+           board[i] - i == col - row or \
+           board[i] + i == col + row:
+            return False
+    return True
+
+def solve(board, row):
+    if row == N:
+        print(board)  # Print solution as a list of column positions
+        return
+
+    for col in range(N):
+        if is_safe(board, row, col):
+            board[row] = col
+            solve(board, row + 1)
+            board[row] = -1  # Backtrack
+
+# Initialize board and solve
+board = [-1] * N
+solve(board,0)
